@@ -33,3 +33,23 @@ class SignInForm(ModelForm):
         model = User
         exclude = ['username', 'phone']
         fields = ['email', 'password']
+        labels = {
+            'email': '이메일 주소',
+            'password': '비밀번호',
+        }
+        widgets = {
+            'email': EmailInput(attrs={'class': 'form-control'}),
+            'password': PasswordInput(attrs={'class': 'form-control'})
+        }
+
+    def clean(self):
+        cleaned_data = super().clean() # 부모에 있는 값을 clean으로 받아오기 
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+
+        try:
+            user = User.objects.get(pk=email)
+            if not check_password(password, user.password):
+                self.add_error('password', '비밀번호가 틀렸습니다.')
+        except: # 없는 이메일(id)
+            self.add_error('email', '가입하지 않은 이메일 주소입니다.')

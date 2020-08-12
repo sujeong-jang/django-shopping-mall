@@ -50,9 +50,14 @@
                 <a class="dropdown-item" href="{% url 'skirt' %}">Skirt</a>
               </div>
             </li>
+            <!-- 로그인이 되어 있는 상태라면 -->
+              {% if user.is_authenticated %}
+              <li class="nav-item"><a href="{% url 'signout' %}" class="nav-link">Logout</a></li>
+              {% else %}
 	            <li class="nav-item"><a href="{% url 'signin' %}" class="nav-link">Login</a></li>
               <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link">Join</a></li>
-              <li class="nav-item"><a href="blog.html" class="nav-link">Q&A</a></li>
+              {% endif %}
+              <li class="nav-item"><a href="{% url 'board' %}" class="nav-link">Q&A</a></li>
 	            <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
 	        </ul>
