@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'shop',
     'product',
     'order',
+    'imagekit'
 ]
 
 MIDDLEWARE = [
